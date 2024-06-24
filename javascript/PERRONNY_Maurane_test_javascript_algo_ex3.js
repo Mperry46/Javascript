@@ -1,12 +1,12 @@
-var result = true;
-var arrayErrorLine=new Array();
-var arrayErrorIndexLine=new Array();
-var arrayErrorColumn=new Array();
-var arrayErrorIndexColumn=new Array();
+let arrayErrorLine=new Array();
+let arrayErrorIndexLine=new Array();
+let arrayErrorColumn=new Array();
+let arrayErrorIndexColumn=new Array();
+
 
 /*
-Funtion resultSudoku: check every line in the board
-Parameter board[] [] 
+Funtion checkLineSudoku: check every line in the board
+Parameter board[][] 
 */
 function checkLineSudoku(board){
 	
@@ -14,22 +14,22 @@ function checkLineSudoku(board){
 	for (var r = 0; r < board.length; ++r){
 		var listLine=new Array();
 		for (var c = 0; c < board[r].length; ++c){
-			var strLine=board[r][c];
-			var listLine.push(strLine);
+			strLine=board[r][c];
+			listLine.push(strLine);
 		}
-			
-		if(False==checkSudoku(list)){
-			result = false;
+		
+		if(false==checkSudoku(listLine)){
 			arrayErrorLine[index]= listLine;
-			arrayErrorIndexLine[index]=r;			
+			arrayErrorIndexLine[index]=r+1;			
 			index++;
 		}
+		
 	}
 		
 }
 
 /*
-Funtion resultSudoku: check every line in the board
+Funtion checkColumnSudoku: check every column in the board
 Parameter board[] [] 
 */
 function checkColumnSudoku(board){
@@ -38,77 +38,57 @@ function checkColumnSudoku(board){
 	for (var r = 0; r < board.length; ++r){
 		var listColumn=new Array();
 		for (var c = 0; c < board[r].length; ++c){
-			var strColumn=board[c][r];
-			var listColumn.push(strColumn);
+			strColumn=board[c][r];
+			listColumn.push(strColumn);
 		}
-			
-		if(False==checkSudoku(list)){
-			result = false;
+		
+		if(false==checkSudoku(listColumn)){
 			arrayErrorColumn[index]= listColumn;
-			arrayErrorIndexColumn[index]=r;			
+			arrayErrorIndexColumn[index]=r+1;			
 			index++;
 		}
+		
 	}
 		
 }
+
+/*Funtion checkBoxSudoku: check every box in the board
+Parameter board[] [] 
+*/
+function checkBoxSudoku(board){
+	
+
+		
+}
+
+
 
 /*
 Funtion resultSudoku: display the sudoku result
 Return display HTML table
 */
 function resultSudoku(){
-	document.write(" the Sudoku is correct"); 
+
 	checkLineSudoku(board);
 	checkColumnSudoku(board);
 	
-	if (result=="true"){
-		document.write(" the Sudoku is correct"); 
-	}else{	
-		var body2 = document.getElementsByTagName("body")[0];
-		var tblBody2 = document.createElement("tbody");
-		//Create table balise in HTML
-		var tbl2 = document.createElement("table");
-		
-		//Fill with line error
-		for (var i = 0; i < arrayErrorIndexLine.length; ++i){
-			//Create tr balise in HTML
-			var row2 = document.createElement("tr");
-			for (var c = 0; c < board[r].length; ++c){
-				//Create td balise in HTML
-				var cell2 = document.createElement("td");
-				//Create text node
-				var cellText2 = document.createTextNode("Line " i " incorrect"+ arrayErrorLine );
-				
-				cell2.appendChild(cellText2);
-				row2.appendChild(cell2);
-				
-			}
-			tblBody2.appendChild(row2);
-			
-		}
-		
-		//Fill with column error
-		for (var i = 0; i < arrayErrorIndexColumn.length; ++i){
-			//Create tr balise in HTML
-			var row2 = document.createElement("tr");
-			for (var c = 0; c < board[r].length; ++c){
-				//Create td balise in HTML
-				var cell2 = document.createElement("td");
-				//Create text node
-				var cellText2 = document.createTextNode("Line " i " incorrect"+ arrayErrorColumn );
-				
-				cell2.appendChild(cellText);
-				row2.appendChild(cell);
-				
-			}
-			tblBody2.appendChild(row);
-			
-		}
-		
-	tbl2.appendChild(tblBody2);
-	body2.appendChild(tbl2);
-	// sets the border attribute of tbl to '2'
-	tbl2.setAttribute("border", "2");	
-		
+
+	//Fill with line error
+	for (var i = 0; i < arrayErrorIndexLine.length; ++i){
+		document.write("Line "+ arrayErrorIndexLine[i]+ " incorrect "+ arrayErrorLine[i]); 	
+		document.write("<br>");
 	}
+		
+	//Fill with column error
+	for (var i = 0; i < arrayErrorIndexColumn.length; ++i){
+		document.write("Column "+ arrayErrorIndexColumn[i]+ " incorrect "+ arrayErrorColumn[i]); 	
+		document.write("<br>");		
+
+	}
+	
+	if ((arrayErrorIndexLine === undefined || arrayErrorIndexLine.length == 0)&&
+		(arrayErrorIndexColumn === undefined || arrayErrorIndexColumn.length == 0)){
+		document.write("The sudoku is good"); 
+	}	
+
 }
